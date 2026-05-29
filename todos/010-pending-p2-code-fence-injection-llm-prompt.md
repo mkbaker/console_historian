@@ -74,9 +74,9 @@ Option A. Simple find-and-replace preserves readability for the LLM while elimin
 
 ## Acceptance Criteria
 
-- [ ] Entry input containing ` ``` ` does not break Markdown code fence structure
-- [ ] Spec added: `format_log` with entry containing backtick shell expression
-- [ ] LLM prompt structure (headings, fences, metadata) remains intact for such entries
+- [x] Entry input containing ` ``` ` does not break Markdown code fence structure
+- [x] Spec added: `format_log` with entry containing backtick shell expression
+- [x] LLM prompt structure (headings, fences, metadata) remains intact for such entries
 
 ## Work Log
 

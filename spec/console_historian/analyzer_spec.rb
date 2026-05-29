@@ -84,6 +84,31 @@ RSpec.describe ConsoleHistorian::Analyzer do
         analyzer.analyze(entries)
         expect(redactor).to have_received(:redact_entries).with(entries)
       end
+
+      context "when an entry contains triple backticks" do
+        let(:backtick_entries) do
+          [
+            { input: "User.count", output: "42", timestamp: "2026-05-29T14:00:00" },
+            { input: "result = \`\`\`ruby\nUser.all\n\`\`\`", output: "...", timestamp: "2026-05-29T14:01:00" },
+            { input: "puts result", output: "ok", timestamp: "2026-05-29T14:02:00" }
+          ]
+        end
+
+        it "escapes triple backticks so the code fence is not broken" do
+          fake_provider = instance_double(ConsoleHistorian::Providers::Anthropic)
+          captured_user_content = nil
+          allow(fake_provider).to receive(:call) do |_system, user|
+            captured_user_content = user
+            "# Console Session"
+          end
+          allow(ConsoleHistorian::Providers::Anthropic).to receive(:new).and_return(fake_provider)
+
+          analyzer.analyze(backtick_entries)
+
+          expect(captured_user_content).not_to include("```ruby\nUser.all")
+          expect(captured_user_content).to include("'''ruby")
+        end
+      end
     end
   end
 end

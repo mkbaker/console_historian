@@ -92,7 +92,7 @@ module ConsoleHistorian
       entries.each_with_index do |entry, i|
         lines << "### Command #{i + 1} (#{entry[:timestamp]})"
         lines << "```ruby"
-        lines << entry[:input].to_s
+        lines << entry[:input].to_s.gsub("```", "'''")
         lines << "```"
         if entry[:error]
           lines << "**Error:** #{entry[:error_class]}: #{entry[:error]}"
