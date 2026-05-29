@@ -1,0 +1,11 @@
+# console_historian is ready to go.
+# Set ANTHROPIC_API_KEY in your environment to enable AI analysis.
+# See all config options: github.com/mkellenbaker/console_historian
+
+# ConsoleHistorian.configure do |c|
+#   c.ai_provider          = :anthropic   # :anthropic, :openai, :ollama, :none
+#   c.save_path            = "log/console_sessions"
+#   c.output_limit         = 500          # chars captured per command output
+#   c.max_tokens_to_submit = 8_000        # total token budget for LLM submission
+#   c.redact               = [:password, :token, :secret, :api_key, :ssn, :credit_card]
+# end
