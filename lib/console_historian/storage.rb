@@ -30,7 +30,13 @@ module ConsoleHistorian
     end
 
     def file_path(stem)
-      File.join(@config.save_path, "#{stem}.md")
+      s = stem.to_s
+      raise ArgumentError, "Invalid session stem: #{stem.inspect}" if s.empty? || s =~ /[\/\\.]/
+
+      safe = s.gsub(/[^a-zA-Z0-9_\-]/, "")
+      raise ArgumentError, "Invalid session stem: #{stem.inspect}" if safe.empty?
+
+      File.join(@config.save_path, "#{safe}.md")
     end
   end
 end

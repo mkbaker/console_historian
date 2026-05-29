@@ -34,8 +34,8 @@ module ConsoleHistorian
 
         desc "Print a saved console session (pass stem as argument)"
         task :show, [:stem] => :environment do |_, args|
-          stem = args[:stem]
-          abort "Usage: rails console_historian:show[stem]" if stem.nil? || stem.empty?
+          stem = File.basename(args[:stem].to_s).gsub(/[^a-zA-Z0-9_\-]/, "")
+          abort "Usage: rails console_historian:show[stem]" if stem.empty?
 
           content = ConsoleHistorian::Storage.new.load(stem)
           abort "Session '#{stem}' not found" if content.nil?
@@ -45,8 +45,8 @@ module ConsoleHistorian
 
         desc "Re-run LLM analysis on a saved session (pass stem as argument)"
         task :analyze, [:stem] => :environment do |_, args|
-          stem = args[:stem]
-          abort "Usage: rails console_historian:analyze[stem]" if stem.nil? || stem.empty?
+          stem = File.basename(args[:stem].to_s).gsub(/[^a-zA-Z0-9_\-]/, "")
+          abort "Usage: rails console_historian:analyze[stem]" if stem.empty?
 
           raw = ConsoleHistorian::Storage.new.load(stem)
           abort "Session '#{stem}' not found" if raw.nil?

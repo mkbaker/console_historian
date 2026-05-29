@@ -56,5 +56,23 @@ RSpec.describe ConsoleHistorian::Storage do
     it "returns path with .md extension" do
       expect(storage.file_path("my-stem")).to eq(File.join(tmpdir, "my-stem.md"))
     end
+
+    it "raises on path traversal attempt" do
+      expect { storage.file_path("../../etc/passwd") }.to raise_error(ArgumentError, /Invalid session stem/)
+    end
+
+    it "raises on stem that becomes empty after sanitization" do
+      expect { storage.file_path("../..") }.to raise_error(ArgumentError, /Invalid session stem/)
+    end
+
+    it "raises on empty stem" do
+      expect { storage.file_path("") }.to raise_error(ArgumentError, /Invalid session stem/)
+    end
+
+    it "accepts valid stems with underscores and hyphens" do
+      expect(storage.file_path("2026-05-29_14-14_main_abc1234")).to eq(
+        File.join(tmpdir, "2026-05-29_14-14_main_abc1234.md")
+      )
+    end
   end
 end
