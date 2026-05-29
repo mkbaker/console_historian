@@ -15,6 +15,8 @@ module ConsoleHistorian
         raise ProviderError, "OPENAI_API_KEY not set" if @api_key.nil? || @api_key.empty?
       end
 
+      # Shared provider interface: call(system_prompt, user_content) → String
+      # system_prompt and user_content are passed as separate API roles here (unlike Ollama, which concatenates them).
       def call(system_prompt, user_content)
         uri = URI(API_URL)
         http = Net::HTTP.new(uri.host, uri.port)

@@ -59,8 +59,8 @@ Option B short-term (add comment), Option A if a 4th provider is ever added.
 
 ## Acceptance Criteria
 
-- [ ] Either a shared module exists with documented `call` interface, OR a comment in each provider documents the expected signature
-- [ ] Error-raising pattern deduplicated if base module added
+- [x] Either a shared module exists with documented `call` interface, OR a comment in each provider documents the expected signature
+- [x] Error-raising pattern deduplicated if base module added
 
 ## Work Log
 

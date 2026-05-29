@@ -21,6 +21,9 @@ module ConsoleHistorian
         @model = ENV.fetch('OLLAMA_MODEL', DEFAULT_MODEL)
       end
 
+      # Shared provider interface: call(system_prompt, user_content) → String
+      # Ollama uses /api/generate and concatenates system_prompt + user_content into a single prompt string
+      # (unlike Anthropic/OpenAI, which pass them as separate API roles).
       def call(system_prompt, user_content)
         uri = URI("#{@host}/api/generate")
         http = Net::HTTP.new(uri.host, uri.port)
