@@ -67,10 +67,10 @@ Option A. One-line change to initialize, eliminates all compilation overhead.
 
 ## Acceptance Criteria
 
-- [ ] `Redactor#initialize` pre-compiles all pattern regexes into `@compiled`
-- [ ] `Redactor#redact` uses `@compiled` array
-- [ ] All existing redactor specs pass unchanged
-- [ ] No new `Regexp` object created inside `redact`
+- [x] `Redactor#initialize` pre-compiles all pattern regexes into `@compiled`
+- [x] `Redactor#redact` uses `@compiled` array
+- [x] All existing redactor specs pass unchanged
+- [x] No new `Regexp` object created inside `redact`
 
 ## Work Log
 

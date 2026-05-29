@@ -6,18 +6,17 @@ module ConsoleHistorian
 
     def initialize(patterns = nil)
       @patterns = patterns || ConsoleHistorian.configuration.redact
+      @compiled = @patterns.map do |pattern|
+        pat = Regexp.escape(pattern.to_s)
+        /(\b#{pat}\b\s*(?:=>|:)\s*)(?:"[^"]*"|'[^']*'|\S+)/i
+      end
     end
 
     def redact(text)
       return text unless text.is_a?(String)
 
-      @patterns.each do |pattern|
-        pat = Regexp.escape(pattern.to_s)
-        # Captures key+separator as group 1, replaces the value with [REDACTED].
-        # Handles: key: "val", key: val, key => "val", key => val
-        text = text.gsub(/(\b#{pat}\b\s*(?:=>|:)\s*)(?:"[^"]*"|'[^']*'|\S+)/i) do
-          "#{Regexp.last_match(1)}#{REDACTED}"
-        end
+      @compiled.each do |regex|
+        text = text.gsub(regex) { "#{Regexp.last_match(1)}#{REDACTED}" }
       end
       text
     end
