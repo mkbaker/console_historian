@@ -109,6 +109,16 @@ rails console_historian:show 2026-05-29_14-14
 
 Values matching the `redact` list are replaced with `[REDACTED]` in both inputs and outputs before saving or transmitting. Partial matches are caught — for example, `api_key` and `reset_password_token` both match.
 
+Default redact patterns: `password`, `password_digest`, `encrypted_password`, `token`, `auth_token`, `access_token`, `refresh_token`, `bearer_token`, `secret`, `client_secret`, `api_key`, `api_secret`, `private_key`, `ssn`, `credit_card`.
+
+**Limitations:** Redaction is keyword-proximity based — it catches `key: value`, `key => value`, and similar forms. It does **not** redact:
+
+- Raw output values with no keyword context (e.g. `User.first.password` outputs `"hunter2"` — that value is not redacted)
+- Variable assignment form: `password = "mysecret"`
+- Bracket accessor form: `config[:password] = "value"`
+
+For sessions where raw sensitive values may appear in output, use `ai_provider: :none` to disable LLM transmission entirely.
+
 Raw session data is never written to disk or transmitted.
 
 ## Security

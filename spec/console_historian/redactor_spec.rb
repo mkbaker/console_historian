@@ -36,6 +36,66 @@ RSpec.describe ConsoleHistorian::Redactor do
     end
   end
 
+  describe "default patterns" do
+    subject(:redactor) { described_class.new }
+
+    it "redacts password_digest" do
+      input = '#<User id: 1, password_digest: "abc123">'
+      result = redactor.redact(input)
+      expect(result).to include("[REDACTED]")
+      expect(result).not_to include("abc123")
+    end
+
+    it "redacts encrypted_password" do
+      input = '{ encrypted_password: "xyz789" }'
+      result = redactor.redact(input)
+      expect(result).to include("[REDACTED]")
+      expect(result).not_to include("xyz789")
+    end
+
+    it "redacts auth_token" do
+      input = 'user.update(auth_token: "tok_abc")'
+      result = redactor.redact(input)
+      expect(result).to include("[REDACTED]")
+      expect(result).not_to include("tok_abc")
+    end
+
+    it "redacts access_token" do
+      input = '{ access_token: "at_xyz" }'
+      result = redactor.redact(input)
+      expect(result).to include("[REDACTED]")
+      expect(result).not_to include("at_xyz")
+    end
+
+    it "redacts refresh_token" do
+      input = 'refresh_token: "rt_123"'
+      result = redactor.redact(input)
+      expect(result).to include("[REDACTED]")
+      expect(result).not_to include("rt_123")
+    end
+
+    it "redacts client_secret" do
+      input = '{ client_secret: "cs_secret" }'
+      result = redactor.redact(input)
+      expect(result).to include("[REDACTED]")
+      expect(result).not_to include("cs_secret")
+    end
+
+    it "redacts private_key" do
+      input = 'private_key: "pem_data"'
+      result = redactor.redact(input)
+      expect(result).to include("[REDACTED]")
+      expect(result).not_to include("pem_data")
+    end
+
+    it "redacts api_secret" do
+      input = '{ api_secret: "shh" }'
+      result = redactor.redact(input)
+      expect(result).to include("[REDACTED]")
+      expect(result).not_to include("shh")
+    end
+  end
+
   describe "#redact_entries" do
     let(:entries) do
       [

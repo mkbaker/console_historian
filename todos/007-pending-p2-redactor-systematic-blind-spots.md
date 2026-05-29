@@ -65,11 +65,12 @@ Option A + Option C. Expand the default list and add the warning + README clarif
 
 ## Acceptance Criteria
 
-- [ ] Default redact list includes `password_digest`, `encrypted_password`, `auth_token`, `access_token`, `refresh_token`, `private_key`, `client_secret`
-- [ ] README documents redaction limitations clearly
-- [ ] Session-start message (or README) warns about output-side values
-- [ ] Specs added for `password_digest` and other new default patterns
+- [x] Default redact list includes `password_digest`, `encrypted_password`, `auth_token`, `access_token`, `refresh_token`, `private_key`, `client_secret`
+- [x] README documents redaction limitations clearly
+- [x] Session-start message (or README) warns about output-side values
+- [x] Specs added for `password_digest` and other new default patterns
 
 ## Work Log
 
 - 2026-05-29: Found by security-sentinel agent in /ce-review pass
+- 2026-05-29: Implemented Option A + Option C

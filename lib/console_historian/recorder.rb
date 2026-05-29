@@ -73,6 +73,9 @@ module ConsoleHistorian
       end
 
       puts "[historian] recording session › #{Storage.new.file_path(@stem)}"
+      return unless ConsoleHistorian.configuration.redact.any?
+
+      puts '[historian] note: redaction is keyword-proximity only — raw output values (e.g. User.first.password) are not scrubbed'
     end
 
     def recording?
