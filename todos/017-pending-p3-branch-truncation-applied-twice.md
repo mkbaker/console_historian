@@ -53,9 +53,9 @@ end
 
 ## Acceptance Criteria
 
-- [ ] `current_branch` returns full branch name without truncation
-- [ ] `sanitize_branch` truncates to 30 chars (unchanged)
-- [ ] Branch names longer than 30 chars before sanitization still produce ≤ 30 char stems
+- [x] `current_branch` returns full branch name without truncation
+- [x] `sanitize_branch` truncates to 30 chars (unchanged)
+- [x] Branch names longer than 30 chars before sanitization still produce ≤ 30 char stems
 
 ## Work Log
 

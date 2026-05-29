@@ -124,7 +124,7 @@ module ConsoleHistorian
 
     def current_branch
       out = `git rev-parse --abbrev-ref HEAD 2>/dev/null`.strip
-      out.empty? ? nil : out[0, 30]
+      out.empty? ? nil : out
     rescue StandardError
       nil
     end
