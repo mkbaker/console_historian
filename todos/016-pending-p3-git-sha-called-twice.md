@@ -53,8 +53,8 @@ Option A. Simple ivar cache eliminates one subprocess fork.
 
 ## Acceptance Criteria
 
-- [ ] `git_sha` (subprocess) called once per session lifecycle
-- [ ] `@git_sha` ivar set in `begin_session`, used in `generate_stem` and `finish`
+- [x] `git_sha` (subprocess) called once per session lifecycle
+- [x] `@git_sha` ivar set in `begin_session`, used in `generate_stem` and `finish`
 
 ## Work Log
 

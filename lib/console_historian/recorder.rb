@@ -55,6 +55,7 @@ module ConsoleHistorian
       @entries = []
       @started_at = Time.now
       @truncator = Truncator.new
+      @git_sha = git_sha
       @stem = generate_stem
       @recording = true
       @finished = false
@@ -91,7 +92,7 @@ module ConsoleHistorian
       duration_minutes = ((Time.now - @started_at) / 60).round
       metadata = {
         started_at: @started_at.strftime('%Y-%m-%d %H:%M'),
-        git_sha: git_sha,
+        git_sha: @git_sha,
         duration_minutes: duration_minutes
       }
 
@@ -117,7 +118,7 @@ module ConsoleHistorian
     def generate_stem
       time_part = @started_at.strftime('%Y-%m-%d_%H-%M')
       branch_part = sanitize_branch(current_branch)
-      sha_part = git_sha
+      sha_part = @git_sha
       [time_part, branch_part, sha_part].compact.reject(&:empty?).join('_')
     end
 
