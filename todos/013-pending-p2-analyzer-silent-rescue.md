@@ -52,9 +52,9 @@ Option A. One-line change, consistent with existing pattern. The warning goes to
 
 ## Acceptance Criteria
 
-- [ ] `warn` called with error class and message when analysis fails
-- [ ] Fallback still used on failure (behavior unchanged)
-- [ ] Output format consistent with `[historian]` prefix used elsewhere
+- [x] `warn` called with error class and message when analysis fails
+- [x] Fallback still used on failure (behavior unchanged)
+- [x] Output format consistent with `[historian]` prefix used elsewhere
 
 ## Work Log
 

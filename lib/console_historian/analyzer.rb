@@ -61,7 +61,8 @@ module ConsoleHistorian
       user_content = format_log(trimmed, metadata)
 
       provider.call(SYSTEM_PROMPT, user_content)
-    rescue ProviderError, StandardError
+    rescue ProviderError, StandardError => e
+      warn "[historian] AI analysis failed (#{e.class}): #{e.message}"
       nil
     end
 
