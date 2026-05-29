@@ -43,24 +43,6 @@ module ConsoleHistorian
           puts content
         end
 
-        desc "Re-run LLM analysis on a saved session (pass stem as argument)"
-        task :analyze, [:stem] => :environment do |_, args|
-          stem = File.basename(args[:stem].to_s).gsub(/[^a-zA-Z0-9_\-]/, "")
-          abort "Usage: rails console_historian:analyze[stem]" if stem.empty?
-
-          raw = ConsoleHistorian::Storage.new.load(stem)
-          abort "Session '#{stem}' not found" if raw.nil?
-
-          puts "Re-analyzing #{stem}..."
-          entries = [{ input: raw, output: "", timestamp: Time.now.iso8601 }]
-          result = ConsoleHistorian::Analyzer.new.analyze(entries, {})
-          if result
-            path = ConsoleHistorian::Storage.new.save(stem, result)
-            puts "Saved › #{path}"
-          else
-            puts "Analysis failed or provider not configured"
-          end
-        end
       end
     end
   end

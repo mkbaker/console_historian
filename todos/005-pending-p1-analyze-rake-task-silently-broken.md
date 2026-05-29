@@ -71,7 +71,7 @@ Option C short-term (remove the broken task), Option A medium-term (sidecar JSON
 
 ## Acceptance Criteria
 
-- [ ] If removing: `rake console_historian:analyze` is removed from railtie and README
+- [x] If removing: `rake console_historian:analyze` is removed from railtie and README
 - [ ] If implementing sidecar: `Recorder#finish` saves `stem.json` with structured entries; task reloads and re-analyzes correctly
 - [ ] No silent "Analysis failed" when provider is properly configured
 

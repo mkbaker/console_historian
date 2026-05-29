@@ -105,12 +105,6 @@ Show a session:
 rails console_historian:show 2026-05-29_14-14
 ```
 
-Re-analyze a session with the LLM:
-
-```sh
-rails console_historian:analyze 2026-05-29_14-14
-```
-
 ## Redaction
 
 Values matching the `redact` list are replaced with `[REDACTED]` in both inputs and outputs before saving or transmitting. Partial matches are caught — for example, `api_key` and `reset_password_token` both match.
