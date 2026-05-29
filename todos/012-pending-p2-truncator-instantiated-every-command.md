@@ -59,9 +59,9 @@ Option A alongside fixing the `last_value` double-call (#011). Together they cle
 
 ## Acceptance Criteria
 
-- [ ] `Truncator.new` called once per session, not once per command
-- [ ] `IRBContextHook#evaluate` uses the recorder's cached truncator
-- [ ] All truncator specs pass unchanged
+- [x] `Truncator.new` called once per session, not once per command
+- [x] `IRBContextHook#evaluate` uses the recorder's cached truncator
+- [x] All truncator specs pass unchanged
 
 ## Work Log
 

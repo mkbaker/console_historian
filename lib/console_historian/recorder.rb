@@ -21,7 +21,7 @@ module ConsoleHistorian
         return_class = (val.class.name rescue nil)
         recorder.record_command(
           input: line.to_s.strip,
-          output: Truncator.new.truncate_output(output, return_class),
+          output: recorder.truncator.truncate_output(output, return_class),
           return_class: return_class,
           duration_ms: duration_ms,
           timestamp: Time.now.iso8601
@@ -49,9 +49,12 @@ module ConsoleHistorian
       recorder
     end
 
+    attr_reader :truncator
+
     def begin_session
       @entries = []
       @started_at = Time.now
+      @truncator = Truncator.new
       @stem = generate_stem
       @recording = true
       @finished = false
