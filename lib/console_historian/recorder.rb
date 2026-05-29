@@ -64,6 +64,7 @@ module ConsoleHistorian
       ConsoleHistorian.instance_variable_set(:@session_id, @stem)
 
       hook_irb
+      hook_pry
       unless self.class.instance_variable_get(:@exit_registered)
         self.class.instance_variable_set(:@exit_registered, true)
         at_exit { ConsoleHistorian.current_recorder&.finish }
@@ -113,6 +114,40 @@ module ConsoleHistorian
       return if IRB::Context.ancestors.include?(IRBContextHook)
 
       IRB::Context.prepend(IRBContextHook)
+    end
+
+    def hook_pry
+      return unless defined?(Pry)
+      return if Pry.hooks.hook_exists?(:before_eval, :console_historian_before)
+
+      Pry.hooks.add_hook(:before_eval, :console_historian_before) do |code, _pry_instance|
+        recorder = ConsoleHistorian.current_recorder
+        next unless recorder&.recording?
+        next if code.nil? || code.strip.empty?
+
+        Thread.current[:_historian_code] = code.strip
+        Thread.current[:_historian_start_ms] = (Time.now.to_f * 1000).to_i
+      end
+
+      Pry.hooks.add_hook(:after_eval, :console_historian_after) do |result, _pry_instance|
+        recorder = ConsoleHistorian.current_recorder
+        code = Thread.current[:_historian_code]
+        start_ms = Thread.current[:_historian_start_ms]
+        Thread.current[:_historian_code] = nil
+        Thread.current[:_historian_start_ms] = nil
+        next unless recorder&.recording? && code
+
+        duration_ms = (Time.now.to_f * 1000).to_i - start_ms.to_i
+        output = (result.inspect rescue '')
+        return_class = (result.class.name rescue nil)
+        recorder.record_command(
+          input: code,
+          output: recorder.truncator.truncate_output(output, return_class),
+          return_class: return_class,
+          duration_ms: duration_ms,
+          timestamp: Time.now.iso8601
+        )
+      end
     end
 
     def generate_stem
