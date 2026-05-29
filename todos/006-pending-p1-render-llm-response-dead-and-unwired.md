@@ -72,10 +72,11 @@ Option A if post-processing is a likely future need. Option B otherwise. The spe
 
 ## Acceptance Criteria
 
-- [ ] Either `render_llm_response` is called in `Recorder#finish`, OR the method and its spec are deleted
-- [ ] No production code path calls a method that has no test coverage and vice versa
-- [ ] Renderer spec covers only methods that are actually called in production
+- [x] Either `render_llm_response` is called in `Recorder#finish`, OR the method and its spec are deleted
+- [x] No production code path calls a method that has no test coverage and vice versa
+- [x] Renderer spec covers only methods that are actually called in production
 
 ## Work Log
 
 - 2026-05-29: Found by simplicity and architecture agents in /ce-review pass
+- 2026-05-29: Fixed — Option A wired; `Recorder#finish` now routes LLM response through `Renderer#render_llm_response`

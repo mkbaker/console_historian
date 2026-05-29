@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "time"
+require 'time'
 
 module ConsoleHistorian
   # Prepended onto IRB::Context to intercept per-command evaluate calls.
@@ -8,18 +8,18 @@ module ConsoleHistorian
   module IRBContextHook
     def evaluate(line, line_no, exception: nil)
       recorder = ConsoleHistorian.current_recorder
-      return super(line, line_no, exception: exception) unless recorder&.recording?
-      return super(line, line_no, exception: exception) if line.nil? || line.strip.empty?
+      return super unless recorder&.recording?
+      return super if line.nil? || line.strip.empty?
 
       start_ms = (Time.now.to_f * 1000).to_i
 
       begin
-        result = super(line, line_no, exception: exception)
+        result = super
         duration_ms = (Time.now.to_f * 1000).to_i - start_ms
         output = begin
           last_value.inspect
         rescue StandardError
-          ""
+          ''
         end
         return_class = begin
           last_value.class.name
@@ -38,7 +38,7 @@ module ConsoleHistorian
         duration_ms = (Time.now.to_f * 1000).to_i - start_ms
         recorder.record_command(
           input: line.to_s.strip,
-          output: "",
+          output: '',
           error: e.message,
           error_class: e.class.name,
           duration_ms: duration_ms,
@@ -91,12 +91,13 @@ module ConsoleHistorian
 
       duration_minutes = ((Time.now - @started_at) / 60).round
       metadata = {
-        started_at: @started_at.strftime("%Y-%m-%d %H:%M"),
+        started_at: @started_at.strftime('%Y-%m-%d %H:%M'),
         git_sha: git_sha,
         duration_minutes: duration_minutes
       }
 
-      content = Analyzer.new.analyze(@entries, metadata)
+      raw = Analyzer.new.analyze(@entries, metadata)
+      content = raw ? Renderer.new.render_llm_response(@stem, raw) : nil
       content ||= Renderer.new.render_fallback(@stem, @entries, metadata)
 
       path = Storage.new.save(@stem, content)
@@ -115,10 +116,10 @@ module ConsoleHistorian
     end
 
     def generate_stem
-      time_part = @started_at.strftime("%Y-%m-%d_%H-%M")
+      time_part = @started_at.strftime('%Y-%m-%d_%H-%M')
       branch_part = sanitize_branch(current_branch)
       sha_part = git_sha
-      [time_part, branch_part, sha_part].compact.reject(&:empty?).join("_")
+      [time_part, branch_part, sha_part].compact.reject(&:empty?).join('_')
     end
 
     def current_branch
@@ -138,7 +139,7 @@ module ConsoleHistorian
     def sanitize_branch(branch)
       return nil if branch.nil? || branch.empty?
 
-      branch.gsub(/[^a-zA-Z0-9]/, "-").gsub(/-{2,}/, "-").gsub(/\A-|-\z/, "")[0, 30]
+      branch.gsub(/[^a-zA-Z0-9]/, '-').gsub(/-{2,}/, '-').gsub(/\A-|-\z/, '')[0, 30]
     end
   end
 end
