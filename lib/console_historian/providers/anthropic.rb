@@ -12,11 +12,10 @@ module ConsoleHistorian
 
       def initialize
         @api_key = ENV["ANTHROPIC_API_KEY"]
+        raise ProviderError, "ANTHROPIC_API_KEY not set" if @api_key.nil? || @api_key.empty?
       end
 
       def call(system_prompt, user_content)
-        raise ProviderError, "ANTHROPIC_API_KEY not set" if @api_key.nil? || @api_key.empty?
-
         uri = URI(API_URL)
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true

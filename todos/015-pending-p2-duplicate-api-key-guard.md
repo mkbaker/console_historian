@@ -64,9 +64,9 @@ Option A. Providers should own their own validation. `build_provider` should jus
 
 ## Acceptance Criteria
 
-- [ ] API key validation lives in exactly one place per provider
-- [ ] Missing key produces an error (not silent nil) that gets logged via the analyzer's rescue
-- [ ] No change to observable behavior for end users
+- [x] API key validation lives in exactly one place per provider
+- [x] Missing key produces an error (not silent nil) that gets logged via the analyzer's rescue
+- [x] No change to observable behavior for end users
 
 ## Work Log
 

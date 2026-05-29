@@ -71,14 +71,8 @@ module ConsoleHistorian
     def build_provider
       case @config.ai_provider
       when :anthropic
-        key = ENV["ANTHROPIC_API_KEY"]
-        return nil if key.nil? || key.empty?
-
         Providers::Anthropic.new
       when :openai
-        key = ENV["OPENAI_API_KEY"]
-        return nil if key.nil? || key.empty?
-
         Providers::OpenAI.new
       when :ollama
         Providers::Ollama.new
