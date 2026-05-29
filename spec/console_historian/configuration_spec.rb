@@ -33,8 +33,14 @@ RSpec.describe ConsoleHistorian::Configuration do
       expect(config.redact).to include(:password, :token, :secret, :api_key)
     end
 
-    it 'defaults ai_provider to :none when no API keys set' do
-      expect(config.ai_provider).to eq(:none)
+    it 'defaults ai_provider to :none when no API keys set and no claude CLI' do
+      allow(ConsoleHistorian::Providers::ClaudeCLI).to receive(:available?).and_return(false)
+      expect(described_class.new.ai_provider).to eq(:none)
+    end
+
+    it 'detects :claude_cli when binary exists and no API keys set' do
+      allow(ConsoleHistorian::Providers::ClaudeCLI).to receive(:available?).and_return(true)
+      expect(described_class.new.ai_provider).to eq(:claude_cli)
     end
   end
 

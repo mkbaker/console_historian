@@ -23,6 +23,7 @@ module ConsoleHistorian
       return :anthropic if key?('ANTHROPIC_API_KEY')
       return :openai if key?('OPENAI_API_KEY')
       return :ollama if ENV.key?('OLLAMA_HOST')
+      return :claude_cli if Providers::ClaudeCLI.available?
 
       :none
     end

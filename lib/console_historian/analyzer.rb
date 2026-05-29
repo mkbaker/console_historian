@@ -76,6 +76,8 @@ module ConsoleHistorian
         Providers::OpenAI.new
       when :ollama
         Providers::Ollama.new
+      when :claude_cli
+        Providers::ClaudeCLI.new
       end
     end
 

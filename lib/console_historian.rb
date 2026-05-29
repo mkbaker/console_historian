@@ -11,6 +11,7 @@ require_relative "console_historian/recorder"
 require_relative "console_historian/providers/anthropic"
 require_relative "console_historian/providers/openai"
 require_relative "console_historian/providers/ollama"
+require_relative "console_historian/providers/claude_cli"
 
 module ConsoleHistorian
   class ProviderError < StandardError; end
