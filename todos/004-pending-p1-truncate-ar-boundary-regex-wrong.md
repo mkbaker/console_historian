@@ -4,6 +4,7 @@ description: truncate_ar uses > regex to find record boundaries — fires premat
 metadata:
   type: finding
   priority: p1
+  status: completed
   tags: [correctness, code-review]
 ---
 
@@ -88,10 +89,10 @@ Option A for correctness. Also drop the record count from the truncation message
 
 ## Acceptance Criteria
 
-- [ ] `truncate_ar('#<User id: 1, name: "a>b", email: "x@y.com">')` returns the full record, not a truncated mid-record string
-- [ ] Collection with 3 records truncates after the first correctly
-- [ ] Spec added: field value containing `>`, nested object in field, empty collection
-- [ ] No regression on existing truncator specs
+- [x] `truncate_ar('#<User id: 1, name: "a>b", email: "x@y.com">')` returns the full record, not a truncated mid-record string
+- [x] Collection with 3 records truncates after the first correctly
+- [x] Spec added: field value containing `>`, nested object in field, empty collection
+- [x] No regression on existing truncator specs
 
 ## Work Log
 
