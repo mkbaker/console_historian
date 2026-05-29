@@ -22,6 +22,7 @@ module ConsoleHistorian
     def detect_provider
       return :anthropic if key?('ANTHROPIC_API_KEY')
       return :openai if key?('OPENAI_API_KEY')
+      return :ollama if ENV.key?('OLLAMA_HOST')
 
       :none
     end

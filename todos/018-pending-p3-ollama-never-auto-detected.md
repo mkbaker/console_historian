@@ -63,8 +63,8 @@ Option C short-term (document it), Option B if OLLAMA_HOST is commonly set, Opti
 
 ## Acceptance Criteria
 
-- [ ] README explicitly states Ollama requires `ai_provider: :ollama` in initializer (does not auto-detect)
-- [ ] OR: `OLLAMA_HOST` env var triggers Ollama selection
+- [x] README explicitly states Ollama requires `ai_provider: :ollama` in initializer (does not auto-detect)
+- [x] OR: `OLLAMA_HOST` env var triggers Ollama selection
 
 ## Work Log
 

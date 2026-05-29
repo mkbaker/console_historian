@@ -8,10 +8,12 @@ RSpec.describe ConsoleHistorian::Configuration do
   around do |example|
     orig_anthropic = ENV.delete("ANTHROPIC_API_KEY")
     orig_openai = ENV.delete("OPENAI_API_KEY")
+    orig_ollama = ENV.delete("OLLAMA_HOST")
     example.run
   ensure
     ENV["ANTHROPIC_API_KEY"] = orig_anthropic if orig_anthropic
     ENV["OPENAI_API_KEY"] = orig_openai if orig_openai
+    ENV["OLLAMA_HOST"] = orig_ollama if orig_ollama
   end
 
   describe "defaults" do
@@ -50,6 +52,17 @@ RSpec.describe ConsoleHistorian::Configuration do
     it "prefers anthropic over openai when both present" do
       ENV["ANTHROPIC_API_KEY"] = "sk-test"
       ENV["OPENAI_API_KEY"] = "sk-test"
+      expect(described_class.new.ai_provider).to eq(:anthropic)
+    end
+
+    it "detects :ollama when OLLAMA_HOST present and no API keys set" do
+      ENV["OLLAMA_HOST"] = "http://localhost:11434"
+      expect(described_class.new.ai_provider).to eq(:ollama)
+    end
+
+    it "prefers anthropic over ollama when both present" do
+      ENV["ANTHROPIC_API_KEY"] = "sk-test"
+      ENV["OLLAMA_HOST"] = "http://localhost:11434"
       expect(described_class.new.ai_provider).to eq(:anthropic)
     end
   end
