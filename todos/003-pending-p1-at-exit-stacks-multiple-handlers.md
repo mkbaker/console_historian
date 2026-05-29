@@ -79,10 +79,10 @@ Option A. Matches the existing `hook_irb` guard pattern; decouples the closure f
 
 ## Acceptance Criteria
 
-- [ ] Calling `Recorder.start` twice in one process registers exactly one `at_exit` handler
-- [ ] `at_exit` fires the currently active recorder, not a stale instance
-- [ ] Spec added verifying no duplicate file writes on multi-start scenarios
-- [ ] `spec_helper.rb` resets `@exit_registered` between tests
+- [x] Calling `Recorder.start` twice in one process registers exactly one `at_exit` handler
+- [x] `at_exit` fires the currently active recorder, not a stale instance
+- [x] Spec added verifying no duplicate file writes on multi-start scenarios
+- [x] `spec_helper.rb` resets `@exit_registered` between tests
 
 ## Work Log
 

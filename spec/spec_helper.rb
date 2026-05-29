@@ -21,5 +21,7 @@ RSpec.configure do |config|
 
   config.before do
     ConsoleHistorian.reset_configuration!
+    ConsoleHistorian::Recorder.instance_variable_set(:@exit_registered, nil)
+    ConsoleHistorian.instance_variable_set(:@current_recorder, nil)
   end
 end

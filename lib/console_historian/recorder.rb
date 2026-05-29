@@ -67,7 +67,10 @@ module ConsoleHistorian
       ConsoleHistorian.instance_variable_set(:@session_id, @stem)
 
       hook_irb
-      at_exit { finish }
+      unless self.class.instance_variable_get(:@exit_registered)
+        self.class.instance_variable_set(:@exit_registered, true)
+        at_exit { ConsoleHistorian.current_recorder&.finish }
+      end
 
       puts "[historian] recording session › #{Storage.new.file_path(@stem)}"
     end
