@@ -71,19 +71,16 @@ module ConsoleHistorian
     def build_provider
       case @config.ai_provider
       when :anthropic
-        require_relative "providers/anthropic"
         key = ENV["ANTHROPIC_API_KEY"]
         return nil if key.nil? || key.empty?
 
         Providers::Anthropic.new
       when :openai
-        require_relative "providers/openai"
         key = ENV["OPENAI_API_KEY"]
         return nil if key.nil? || key.empty?
 
         Providers::OpenAI.new
       when :ollama
-        require_relative "providers/ollama"
         Providers::Ollama.new
       end
     end

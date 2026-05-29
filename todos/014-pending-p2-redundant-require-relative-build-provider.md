@@ -57,9 +57,9 @@ Option A unless startup performance is a concern (it's not for a dev-only gem). 
 
 ## Acceptance Criteria
 
-- [ ] `require_relative` calls removed from `build_provider`
-- [ ] All provider specs still pass (providers remain loadable)
-- [ ] `Analyzer#build_provider` still instantiates correct provider class
+- [x] `require_relative` calls removed from `build_provider`
+- [x] All provider specs still pass (providers remain loadable)
+- [x] `Analyzer#build_provider` still instantiates correct provider class
 
 ## Work Log
 
