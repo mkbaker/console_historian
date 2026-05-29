@@ -16,16 +16,9 @@ module ConsoleHistorian
       begin
         result = super
         duration_ms = (Time.now.to_f * 1000).to_i - start_ms
-        output = begin
-          last_value.inspect
-        rescue StandardError
-          ''
-        end
-        return_class = begin
-          last_value.class.name
-        rescue StandardError
-          nil
-        end
+        val = (last_value rescue nil)
+        output = (val.inspect rescue '')
+        return_class = (val.class.name rescue nil)
         recorder.record_command(
           input: line.to_s.strip,
           output: Truncator.new.truncate_output(output, return_class),

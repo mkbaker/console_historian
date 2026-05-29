@@ -60,10 +60,10 @@ Option A. Capture `last_value` once, derive both `output` and `return_class` fro
 
 ## Acceptance Criteria
 
-- [ ] `last_value` called exactly once per command evaluation in `IRBContextHook#evaluate`
-- [ ] `output` and `return_class` derived from same captured object
-- [ ] No behavior change for normal cases
-- [ ] Exception in `last_value` itself still handled gracefully
+- [x] `last_value` called exactly once per command evaluation in `IRBContextHook#evaluate`
+- [x] `output` and `return_class` derived from same captured object
+- [x] No behavior change for normal cases
+- [x] Exception in `last_value` itself still handled gracefully
 
 ## Work Log
 
