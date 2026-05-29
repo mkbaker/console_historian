@@ -97,7 +97,7 @@ module ConsoleHistorian
         duration_minutes: duration_minutes
       }
 
-      raw = Analyzer.new.analyze(@entries, metadata)
+      raw = analyze_if_wanted(@entries, metadata)
       content = raw ? Renderer.new.render_llm_response(@stem, raw) : nil
       content ||= Renderer.new.render_fallback(@stem, @entries, metadata)
 
@@ -148,6 +148,19 @@ module ConsoleHistorian
           timestamp: Time.now.iso8601
         )
       end
+    end
+
+    def analyze_if_wanted(entries, metadata)
+      return nil if ConsoleHistorian.configuration.ai_provider == :none
+
+      if $stdin.respond_to?(:isatty) && $stdin.isatty
+        $stdout.print "[historian] Analyze session with LLM? [y/N] "
+        $stdout.flush
+        answer = $stdin.gets&.strip&.downcase
+        return nil unless answer == 'y' || answer == 'yes'
+      end
+
+      Analyzer.new.analyze(entries, metadata)
     end
 
     def generate_stem
