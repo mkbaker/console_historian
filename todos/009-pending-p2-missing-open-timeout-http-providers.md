@@ -63,10 +63,10 @@ Option A. Three-line change across three files. `open_timeout = 5` for Ollama (l
 
 ## Acceptance Criteria
 
-- [ ] All three providers have `http.open_timeout` set before `http.request`
-- [ ] Anthropic/OpenAI: `open_timeout = 10`
-- [ ] Ollama: `open_timeout = 5`
-- [ ] `ProviderError` raised (not hang) when host unreachable
+- [x] All three providers have `http.open_timeout` set before `http.request`
+- [x] Anthropic/OpenAI: `open_timeout = 10`
+- [x] Ollama: `open_timeout = 5`
+- [x] `ProviderError` raised (not hang) when host unreachable
 
 ## Work Log
 
