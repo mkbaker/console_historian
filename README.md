@@ -132,7 +132,7 @@ Raw session data is never written to disk or transmitted.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at [https://github.com/mkellenbaker/console_historian](https://github.com/mkellenbaker/console_historian).
+Bug reports and pull requests are welcome on GitHub at [https://github.com/mkbaker/console_historian](https://github.com/mkbaker/console_historian).
 
 ## License
 
