@@ -4,6 +4,7 @@ description: OLLAMA_HOST env var used verbatim in Net::HTTP — any host env var
 metadata:
   type: finding
   priority: p1
+  status: completed
   tags: [security, code-review]
 ---
 
@@ -73,10 +74,10 @@ Option A. Validate at `initialize` — any non-http/https or missing host raises
 
 ## Acceptance Criteria
 
-- [ ] `OLLAMA_HOST=ftp://evil.com` raises `ArgumentError` during session start
-- [ ] `OLLAMA_HOST=http://localhost:11434` still works (default)
-- [ ] `OLLAMA_HOST=https://my-ollama.internal` works for LAN deployments
-- [ ] Spec added for `Ollama#initialize` with invalid hosts
+- [x] `OLLAMA_HOST=ftp://evil.com` raises `ArgumentError` during session start
+- [x] `OLLAMA_HOST=http://localhost:11434` still works (default)
+- [x] `OLLAMA_HOST=https://my-ollama.internal` works for LAN deployments
+- [x] Spec added for `Ollama#initialize` with invalid hosts
 
 ## Work Log
 
